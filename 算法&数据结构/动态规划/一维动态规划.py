@@ -1,11 +1,17 @@
-# 70
+# 198
+from typing import List
+
 
 class Solution:
-    def climbStairs(self, n: int) -> int:
+    def rob(self, nums: List[int]) -> int:
+        if len(nums) == 1:
+            return nums[0]
+        if len(nums) == 2:
+            return max(nums[0], nums[1])
 
-        if n <= 2:
-            return n
-        dp = [1, 2] + [0] * (n-2)
-        for i in range(2, n):
-            dp[i] = dp[i-1] + dp[i-2]
-        return dp[n-1]
+        dp = [nums[0], max(nums[0], nums[1])] + [0] * (len(nums)-2)
+        for i in range(2, len(nums)):
+            # 只有两个选择, 偷i=>nums[i] + dp[i-2], 不偷i=>dp[i-1]
+            dp[i] = max(dp[i-1], nums[i] + dp[i-2])
+
+        return dp[len(nums)-1]
