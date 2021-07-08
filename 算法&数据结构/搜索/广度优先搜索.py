@@ -1,5 +1,7 @@
+# 934
 from typing import List
 import copy
+import queue
 
 class Solution:
     def shortestBridge(self, grid: List[List[int]]) -> int:
@@ -35,9 +37,10 @@ class Solution:
 
         def BFS(row, col):
             grid_copy = copy.deepcopy(grid)
-            queue = [(row, col, 0)]
-            while len(queue) > 0:
-                r, c, layer = queue.pop(0)
+            q = queue.Queue()
+            q.put((row, col, 0))
+            while not q.empty():
+                r, c, layer = q.get()
                 if grid_copy[r][c] == 1:
                     return layer
                 grid_copy[r][c] = 3
@@ -45,17 +48,36 @@ class Solution:
                     pos = (r+d[0], c+d[1])
                     if 0 <= pos[0] < row_max and 0 <= pos[1] < col_max and \
                             (grid_copy[pos[0]][pos[1]] == 1 or grid_copy[pos[0]][pos[1]] == 0):
-                            queue.append((pos[0], pos[1], layer+1))
+                            q.put((pos[0], pos[1], layer+1))
             return row_max + col_max
 
         row, col = get_first_land()
         margin_set = DFS(row, col)
 
-        min_len = row_max + col_max
-        for row, col in margin_set:
-            length = BFS(row, col)
-            min_len = min(length-1, min_len)
-        return min_len
+        # 解法一
+        # min_len = row_max + col_max
+        # for row, col in margin_set:
+        #     length = BFS(row, col)
+        #     min_len = min(length-1, min_len)
+        # return min_len
+
+        q = list(margin_set)
+        step = 0
+        while len(q) > 0:
+            l = len(q)
+            # 一次while循环检测所有同一层的点
+            for _ in range(l):
+                r, c = q.pop(0)
+                for d in direct:
+                    pos = (r + d[0], c + d[1])
+                    if 0 <= pos[0] < row_max and 0 <= pos[1] < col_max:
+                        if grid[pos[0]][pos[1]] == 0:
+                            q.append(pos)
+                        elif grid[pos[0]][pos[1]] == 1:
+                            return step
+                        grid[pos[0]][pos[1]] = 2
+            step += 1
+
 
 
 
@@ -64,4 +86,5 @@ class Solution:
 s = Solution()
 # print(s.shortestBridge([[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0],[0,0,0,0,1,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0],[0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0],[0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0],[0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0],[0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0],[0,1,1,1,0,1,0,0,1,0,1,1,1,1,0,0,0,0,0,0],[1,1,1,1,1,0,1,1,0,1,0,1,1,0,0,0,0,0,0,0],[1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0],[1,0,1,0,1,1,1,1,1,1,0,1,1,1,0,0,0,0,0,0],[0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0],[0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0],[0,0,0,1,1,1,1,1,1,1,1,0,1,1,0,0,0,0,0,0]]))
 # print(s.shortestBridge( [[1,1,1,1,1],[1,0,0,0,1],[1,0,1,0,1],[1,0,0,0,1],[1,1,1,1,1]]))
-print(s.shortestBridge([[0,1,0,0,0],[0,1,0,1,1],[0,0,0,0,1],[0,0,0,0,0],[0,0,0,0,0]]))
+# print(s.shortestBridge([[0,1,0,0,0],[0,1,0,1,1],[0,0,0,0,1],[0,0,0,0,0],[0,0,0,0,0]]))
+print(s.shortestBridge([[0,0,0,1,1],[0,0,0,1,0],[0,0,0,1,1],[0,0,1,0,1],[0,0,1,1,0]]))
