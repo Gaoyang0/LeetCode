@@ -16,5 +16,29 @@ class Solution:
         return dp[n]
 
 
-s = Solution()
-print(s.numSquares(12))
+# s = Solution()
+# print(s.numSquares(12))
+
+
+
+from typing import List
+# 139
+# i=1表示s[0]
+# dp[i] = dp[j] && s[j, i] in wordDict (0<=j<i)
+class Solution1:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        wordSet = set(wordDict)
+        dp = [True] + [False] * len(s)
+
+        for i in range(1, len(dp)):
+            for j in range(i):
+                if dp[j] and s[j:i] in wordSet:
+                    dp[i] = True
+                    break
+        return dp[-1]
+
+
+
+
+s1 = Solution1()
+print(s1.wordBreak("applepenapple", ["apple", "pen"]))
