@@ -18,6 +18,7 @@ class Solution:
                 p = p.next
                 continue
             if index % 2 != 0:
+
                 temp = p.next
                 p.next = pre.next
                 pre.next.next = temp
