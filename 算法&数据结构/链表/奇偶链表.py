@@ -1,3 +1,4 @@
+# 328
 class ListNode:
     def __init__(self, val=0, next=None):
         self.val = val
@@ -6,30 +7,22 @@ class ListNode:
 
 class Solution:
     def oddEvenList(self, head: ListNode) -> ListNode:
-        # 头插法，偶数跳过
         p = head
+        tail = head
         pre = head
-
         index = 0
         while p:
-            s = listNodeToString(head)
             index += 1
-            if index == 2 or index == 1:
-                p = p.next
-                continue
-            if index % 2 != 0:
-
+            if index % 2 != 0 and index > 2:
                 temp = p.next
-                p.next = pre.next
-                pre.next.next = temp
-                pre.next = p
-                pre = p
+                pre.next = p.next
+                p.next = tail.next
+                tail.next = p
+                tail = p
                 p = temp
             else:
+                pre = p
                 p = p.next
-
-
-
         return head
 
 
@@ -56,7 +49,7 @@ def listNodeToString(node):
 
 
 def main():
-    line = [1, 2, 3, 4, 5]
+    line = [1, 2, 3, 4, 5, 6, 7]
     head = stringToListNode(line)
     ret = Solution().oddEvenList(head)
     out = listNodeToString(ret)
