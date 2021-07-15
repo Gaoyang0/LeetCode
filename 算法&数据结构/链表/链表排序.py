@@ -12,23 +12,23 @@ class Solution:
 
         p = head.next
         head.next = None
-        ph = ListNode(0, head)
+        h = ListNode(0, head)
         while p:
-            s1 = listNodeToString(head)
-            s2 = listNodeToString(p)
             # 找到对应位置插入
-            q = p.next
-            pre = ph
-            if p.val < pre.next.val:
-                p.next = head
-                head = p
+            temp = p.next
+            pre = h
+            q = pre.next
 
-            while pre.next and pre.next.val < p.val:
+            while q and q.val < p.val:
                 pre = pre.next
+                q = q.next
             p.next = pre.next
             pre.next = p
-            p = q
-        return head
+            p = temp
+        return h.next
+
+        # 归并排序
+
 
 
 def stringToListNode(numbers):
@@ -53,7 +53,7 @@ def listNodeToString(node):
 
 
 def main():
-    numbers = [-1, 5, -3, 4, 0]
+    numbers = [1, 3, -3, 7, 2]
     head = stringToListNode(numbers)
     ret = Solution().sortList(head)
     out = listNodeToString(ret)
