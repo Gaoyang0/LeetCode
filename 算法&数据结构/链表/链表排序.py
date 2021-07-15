@@ -1,3 +1,5 @@
+# 148
+
 class ListNode:
     def __init__(self, val=0, next=None):
         self.val = val
@@ -7,29 +9,55 @@ class ListNode:
 class Solution:
     def sortList(self, head: ListNode) -> ListNode:
         # 解法一，模仿插入排序
-        if not head:
+        # if not head:
+        #     return head
+        #
+        # p = head.next
+        # head.next = None
+        # h = ListNode(0, head)
+        # while p:
+        #     # 找到对应位置插入
+        #     temp = p.next
+        #     pre = h
+        #     q = pre.next
+        #     while q and q.val < p.val:
+        #         pre = pre.next
+        #         q = q.next
+        #     p.next = pre.next
+        #     pre.next = p
+        #     p = temp
+        # return h.next
+
+        # 归并排序递归
+        # 递归结束条件
+        if not head or not head.next:
             return head
 
-        p = head.next
-        head.next = None
-        h = ListNode(0, head)
-        while p:
-            # 找到对应位置插入
-            temp = p.next
-            pre = h
-            q = pre.next
+        # 快慢指针找到中点(原理是fast的速度是slow的两倍)
+        slow, fast = head, head.next
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        # slow即为中点
+        mid = slow.next
+        # 将前半部分链表截断
+        slow.next = None
 
-            while q and q.val < p.val:
-                pre = pre.next
-                q = q.next
-            p.next = pre.next
-            pre.next = p
-            p = temp
+        left = self.sortList(head)
+        right = self.sortList(mid)
+
+        # 合并
+        h = p = ListNode(0, None)
+        while left and right:
+            if left.val < right.val:
+                p.next = left
+                left = left.next
+            else:
+                p.next = right
+                right = right.next
+            p = p.next
+        p.next = left if left else right
         return h.next
-
-        # 归并排序
-
-
 
 
 def stringToListNode(numbers):
