@@ -1,8 +1,4 @@
-
-0
-
-
-dp = [[0] * 3] * 4
-print(dp)
-dp[0][0] = 1
-print(dp)
+s, s1 = "bbadas", ""
+# print(len(set(s1) - set(s) ))
+print({i:s.count(i) for i in s})
+print([1, 2] == [2, 1])
