@@ -12,47 +12,36 @@ class Solution:
         dp = [[0] * (max_w + 1) for _ in range(len(w) + 1)]
         for i in range(1, len(w) + 1):
             for j in range(1, max_w + 1):
-                if j > w[i - 1]:
+                if j >= w[i - 1]:
                     dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - w[i - 1]] + v[i - 1])
                 else:
                     dp[i][j] = dp[i - 1][j]
+        return dp[-1][-1]
 
-class Solution:
-    def knapsack_problem(self, w: List[int], v: List[int], max_w: int) -> int:
-        pass
+    def complete_knapsack_problem(self, w: List[int], v: List[int], max_w: int) -> int:
+        '''
+        在完全背包问题中，一个物品可以拿多次。
+        假设我们遍历到物品 i = 2，且其体积为 w = 2，价值为 v = 3；
+        对于背包容量 j = 5，最多只能装下 2 个该物品。那么我们的状态转移方程就变成了
+         dp[2][5] = max(dp[1][5], dp[1][3] + 3, dp[1][1] + 6)
 
-
-s = Solution()
-print(s.knapsack_problem([2, 3, 4, 5], []))
-
-
-
-
-
-
-
-
-
-
-
-
-
-# 416
-from typing import List
-
-
-class Solution:
-    def canPartition(self, nums: List[int]) -> bool:
-        s = sum(nums)
-        if s % 2 == 0:
-            target = s // 2
-            set = set(nums)
-
-        else:
-            return False
-
+        我们发现在 dp[2][3] 的时候我们其实已经考虑了 dp[1][3] 和 dp[2][1]的情况，
+        而在时 dp[2][1] 也已经考虑了 dp[1][1] 的情况。因此，对于拿多个物品的情况，
+        我们只需考虑 dp[2][3] 即可，即 dp[2][5] = max(dp[1][5], dp[2][3] + 3)。
+        这样，我们就得到了完全背包问题的状态转移方程：dp[i][j] = max(dp[i-1][j], dp[i][j-w] + v)，
+        其与 0-1 背包问题的差别仅仅是把状态转移方程中的第二个 i-1 变成了 i。
+        '''
+        dp = [[0] * (max_w + 1) for _ in range(len(w) + 1)]
+        for i in range(1, len(w) + 1):
+            for j in range(1, max_w + 1):
+                if j >= w[i - 1]:
+                    dp[i][j] = max(dp[i - 1][j], dp[i][j - w[i - 1]] + v[i - 1])
+                else:
+                    dp[i][j] = dp[i - 1][j]
+        return dp[-1][-1]
 
 
 s = Solution()
-print(s.canPartition([1, 5, 11, 5]))
-print(s.canPartition([1, 2, 3, 5]))
+print(s.knapsack_problem01([2, 3, 4, 5], [5, 4, 2, 4], 5))
+print(s.complete_knapsack_problem([2, 3, 4, 5], [5, 4, 2, 10], 10))
+
