@@ -20,15 +20,27 @@ class Solution:
         # 设 + 部分数组和为：x， - 部分数字和为：y，可以推出
         # x - y = target
         # x + y = sum(nums)
-        # y = (sum(nums) - target) // 2
+        # x = (sum(nums) - target) // 2
         # (sum(nums) - target) // 2 ==>是已知的，答案等价于的y的所有可能数
 
         s = sum(nums)
-        if (s - target) % 2 != 0:
+        if (s - target) % 2 != 0 or s < target:
             return 0
         target = (s - target) // 2
 
         # 01背包问题
+        max_w = target
+        dp = [[0] * (max_w + 1) for _ in range(len(nums) + 1)]
+        for i in range(len(nums) + 1):
+            dp[i][0] = 1
+        for i in range(1, len(nums) + 1):
+            for j in range(max_w + 1):
+                if j < nums[i - 1]:
+                    dp[i][j] = dp[i - 1][j]
+                else:
+                    dp[i][j] = dp[i - 1][j] + dp[i - 1][j - nums[i - 1]]
+
+        return dp[-1][-1]
 
 
 
@@ -38,4 +50,5 @@ class Solution:
 
 s = Solution()
 print(s.findTargetSumWays(
-[27,33,4,43,31,44,47,6,6,11,39,37,15,16,8,19,48,17,18,39], 24))
+
+[2,107,109,113,127,131,137,3,2,3,5,7,11,13,17,19,23,29,47,53], 1000))
