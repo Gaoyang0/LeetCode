@@ -16,9 +16,13 @@ class Solution:
 
 
 
-s = Solution()
-# a = [0,1,0,3,12]
-# a = [1]
-a = [1,0]
-s.moveZeroes(a)
-print(a)
+# s = Solution()
+# # a = [0,1,0,3,12]
+# # a = [1]
+# a = [1,0]
+# s.moveZeroes(a)
+# print(a)
+
+
+a = [1,2,1]
+print(a[::-1])
