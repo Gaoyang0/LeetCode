@@ -39,6 +39,9 @@ class Solution:
                 # 计算这个区间的最多金币
                 range_best(i, i + n)
 
+
+
+
         return dp[0][-1]
 
 
