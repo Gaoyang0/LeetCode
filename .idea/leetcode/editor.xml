@@ -19,11 +19,27 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../LC/leetcode/editor/cn/[279]完全平方数.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/../LC/leetcode/editor/cn/[279]完全平方数.py" />
+              <option name="questionId" value="279" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../LC/leetcode/editor/cn/[287]寻找重复数.py">
           <value>
             <LeetcodeEditor>
               <option name="path" value="$PROJECT_DIR$/../LC/leetcode/editor/cn/[287]寻找重复数.py" />
               <option name="questionId" value="287" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../LC/leetcode/editor/cn/[297]二叉树的序列化与反序列化.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/../LC/leetcode/editor/cn/[297]二叉树的序列化与反序列化.py" />
+              <option name="questionId" value="297" />
             </LeetcodeEditor>
           </value>
         </entry>
