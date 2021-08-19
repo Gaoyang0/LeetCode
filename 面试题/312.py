@@ -30,17 +30,12 @@ class Solution:
             dp[i][j] = m
 
         # 对每一个区间长度进行循环
-        for n in range(2, len(nums)):  # 区间长度 #长度从3开始，n从2开始
-            # 开区间长度会从3一直到len(nums)
-            # 因为这里取的是range，所以最后一个数字是len(nums)-1
-
+        for step in range(2, len(nums)):
+            # 外层的第一次循环相当于dp初始化
             # 对于每一个区间长度，循环区间开头的i
-            for i in range(0, len(nums) - n):  # i+n = len(nums)-1
+            for i in range(0, len(nums) - step):
                 # 计算这个区间的最多金币
-                range_best(i, i + n)
-
-
-
+                range_best(i, i + step)
 
         return dp[0][-1]
 
