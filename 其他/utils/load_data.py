@@ -14,10 +14,10 @@ BASE_PATH = os.path.abspath("..")
 
 
 def _load_data(file_name):
-    """Read csv file.
+    """Read csv file.txt.
 
     Arguments:
-        file_name {str} -- csv file name
+        file_name {str} -- csv file.txt name
 
     Returns:
         X {ndarray} -- 2d array object with int or float
