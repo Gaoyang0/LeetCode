@@ -53,11 +53,18 @@ params = {
     'verbose': 1  # <0 显示致命的, =0 显示错误 (警告), >0 显示信息
 }
 
+params_test1 = {'max_depth': range(3, 8, 1), 'num_leaves': range(5, 100, 5)}
+
+gsearch1 = GridSearchCV(
+    estimator=lgb.LGBMClassifier(boosting_type='gbdt', objective='binary', metrics='l2', learning_rate=0.1,
+                                 n_estimators=188, max_depth=6, bagging_fraction=0.8, feature_fraction=0.8),
+    param_grid=params_test1, scoring='roc_auc', cv=5, n_jobs=-1)
+gsearch1.fit(X_train, y_train)
+gsearch1.grid_scores_, gsearch1.best_params_, gsearch1.best_score_
 
 
 
-
-gbm = lgb.train(params, lgb_train, num_boost_round=20, valid_sets=lgb_eval, early_stopping_rounds=5)
-# cv_results = lgb.cv(params, lgb_train, num_boost_round=1000, nfold=5, stratified=False, shuffle=True, metrics='l2',early_stopping_rounds=50,seed=0)
-y_pred = gbm.predict(X_test, num_iteration=gbm.best_iteration)
-print('The MSE of prediction is:', mean_squared_error(y_test, y_pred) ** 0.5)
+# gbm = lgb.train(params, lgb_train, num_boost_round=20, valid_sets=lgb_eval, early_stopping_rounds=5)
+# # cv_results = lgb.cv(params, lgb_train, num_boost_round=1000, nfold=5, stratified=False, shuffle=True, metrics='l2',early_stopping_rounds=50,seed=0)
+# y_pred = gbm.predict(X_test, num_iteration=gbm.best_iteration)
+# print('The MSE of prediction is:', mean_squared_error(y_test, y_pred) ** 0.5)

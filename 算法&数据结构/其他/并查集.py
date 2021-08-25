@@ -37,9 +37,8 @@ def detect_cycle(graph):
     return False
 
 
-
-
-graph = [[0, 1], [1, 2], [1, 3], [2, 4], [3, 4], [3, 5]]
+# graph = [[0, 1], [1, 2], [1, 3], [2, 4], [3, 4], [3, 5]]
+graph = [[0, 1], [0, 2], [1, 2]]
 # graph = [[0, 1], [1, 2], [1, 3], [3, 4], [3, 5]]
 res = detect_cycle(graph)
 
