@@ -25,7 +25,23 @@ def quick_sort(arr, start, end):
     quick_sort(arr, low + 1, end)
 
 
-arr = [10, 7, 8, 9, 1, 5]
-n = len(arr)
-quick_sort(arr, 0, n - 1)
-print(arr)
+# 好记版
+def q_s(arr):
+    if len(arr) <= 1:
+        return arr
+
+    mid = arr[len(arr) // 2]
+    l = [i for i in arr if i < mid]
+    m = [i for i in arr if i == mid]
+    r = [i for i in arr if i > mid]
+
+    return q_s(l) + m + q_s(r)
+
+
+# arr = [10, 7, 8, 9, 1, 5]
+arr = [10, 7, 8, 9, 1, 1]
+# n = len(arr)
+# quick_sort(arr, 0, n - 1)
+# print(arr)
+
+print(q_s(arr))
