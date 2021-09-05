@@ -2,29 +2,46 @@
 # Author:DaoYang
 
 
-def partition(arr, low, high):
-    i = (low - 1)  # 最小元素索引
-    pivot = arr[high]
+def quick_sort(arr, start, end):
+    """快速排序"""
+    # 递归的退出条件
+    if start >= end:
+        return
 
-    for j in range(low, high):
-        # 当前元素小于或等于 pivot
-        if arr[j] <= pivot:
-            i = i + 1
-            arr[i], arr[j] = arr[j], arr[i]
+    mid = arr[start]
+    low = start
+    high = end
 
-    arr[i + 1], arr[high] = arr[high], arr[i + 1]
-    return i + 1
+    while low < high:
+        while low < high and arr[high] >= mid:
+            high -= 1
+        arr[low] = arr[high]
+        while low < high and arr[low] < mid:
+            low += 1
+        arr[high] = arr[low]
+    arr[low] = mid
+
+    quick_sort(arr, start, low - 1)
+    quick_sort(arr, low + 1, end)
 
 
-# 快速排序函数
-def quick_sort(arr, low, high):
-    if low < high:
-        pi = partition(arr, low, high)
-        quick_sort(arr, low, pi - 1)
-        quick_sort(arr, pi + 1, high)
+# 好记版
+def q_s(arr):
+    if len(arr) <= 1:
+        return arr
+
+    mid = arr[len(arr) // 2]
+    l = [i for i in arr if i < mid]
+    m = [i for i in arr if i == mid]
+    r = [i for i in arr if i > mid]
+
+    return q_s(l) + m + q_s(r)
 
 
-arr = [10, 7, 8, 9, 1, 5]
-n = len(arr)
-quick_sort(arr, 0, n - 1)
-print(arr)
+# arr = [10, 7, 8, 9, 1, 5]
+arr = [10, 7, 8, 9, 1, 1]
+# n = len(arr)
+# quick_sort(arr, 0, n - 1)
+# print(arr)
+
+print(q_s(arr))
