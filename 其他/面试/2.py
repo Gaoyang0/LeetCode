@@ -37,13 +37,5 @@ class Solution:
 
         return len(ret)
 
-
-try:
-    _text = input()
-except:
-    _text = None
-
 s = Solution()
-res = s.partitionNumber(_text)
-
-print(str(res) + "\n")
+print(s.partitionNumber("ghiabcdefhelloadamhelloabcdefghi"))

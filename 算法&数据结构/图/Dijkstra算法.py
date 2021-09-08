@@ -2,20 +2,29 @@
 '''https://zhuanlan.zhihu.com/p/63395403'''
 
 def startwith(start: int, mgraph: list) -> list:
+    # 存放已经确定最短距离的点
     passed = [start]
+    # 存放还不确定最短距离的点
     nopass = [x for x in range(len(mgraph)) if x != start]
-    dis = mgraph[start]
 
+    # 存放到各节点的最短路径，初始化为和start直接相邻的点的长度
+    dis = mgraph[start]
+    # 直到nopass为空
     while len(nopass):
+        # 找nopass中dis最小值的索引
         idx = nopass[0]
         for i in nopass:
-            if dis[i] < dis[idx]: idx = i
+            if dis[i] < dis[idx]:
+                idx = i
 
+        # 已知start->idx的最短路径
         nopass.remove(idx)
         passed.append(idx)
 
         for i in nopass:
-            if dis[idx] + mgraph[idx][i] < dis[i]: dis[i] = dis[idx] + mgraph[idx][i]
+            # 以idx为桥梁（start->idx->i）
+            if dis[idx] + mgraph[idx][i] < dis[i]:
+                dis[i] = dis[idx] + mgraph[idx][i]
     return dis
 
 
