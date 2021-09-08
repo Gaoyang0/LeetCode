@@ -8,8 +8,6 @@ roads = [[inf] * N for _ in range(N)]
 
 for i in range(0, len(msg), 3):
     a, b, c = msg[i], msg[i+1], msg[i+2]
-    if a == 0 or b == 0:
-        flag =
     roads[a-1][b-1] = c
     roads[b-1][a-1] = c
 
