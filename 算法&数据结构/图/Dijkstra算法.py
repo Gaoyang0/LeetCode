@@ -7,7 +7,7 @@ def startwith(start: int, mgraph: list) -> list:
     # 存放还不确定最短距离的点
     nopass = [x for x in range(len(mgraph)) if x != start]
 
-    # 存放到各节点的最短路径，初始化为和start直接相邻的点的长度
+    # 存放到各节点的当前已知最短路径，初始化为和start直接相邻的点的长度
     dis = mgraph[start]
     # 直到nopass为空
     while len(nopass):
