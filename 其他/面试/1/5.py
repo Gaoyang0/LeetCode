@@ -28,7 +28,7 @@ def fun(str1):
             else:
                 res = res[:-1]
                 i = i - 1
-                str1 = str1[:i+1] + "_" +
+                str1 = str1[:i+1] + "_"
                 i += 1
                 continue
 
